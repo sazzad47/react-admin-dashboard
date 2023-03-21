@@ -8,7 +8,7 @@ import CesiumComponent from '../../../Components/GlobalViewComponents/CesiumComp
 import ConfirmBookmark from '../../../Components/GlobalViewComponents/Actions/confirmBookmark';
 import { Cartesian2, Cartesian3, Cartographic, createWorldTerrain, HeightReference, HorizontalOrigin, Math, sampleTerrainMostDetailed, VerticalOrigin } from 'cesium';
 import { DispatchContext, initialState, reducer, StateContext } from './StateProvider';
-import NearFarScalar from 'cesium/Source/Core/NearFarScalar';
+// import NearFarScalar from 'cesium/Source/Core/NearFarScalar';
 import * as Cesium from "cesium";
 
 

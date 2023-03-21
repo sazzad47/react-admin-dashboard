@@ -1,7 +1,8 @@
 module.exports = {
-  plugins: [
-    {
-      plugin: require('craco-cesium')(),
-    },
-  ],
-};
+    plugins: [
+      {
+        plugin: require('craco-cesium')(),
+      },
+    ],
+  };
+  
