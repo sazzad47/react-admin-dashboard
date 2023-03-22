@@ -1,29 +1,40 @@
 // @ts-nocheck
-import React, { useEffect, useRef, useState } from "react";
-import { Viewer, Entity } from "resium";
+import React, { useEffect, useState } from "react";
+import { Viewer } from "resium";
 import * as Resium from "resium";
 import * as Cesium from "cesium";
 import image from '../../assets/images/iss.png'
-import location from '../../assets/images/location.png'
-import {Ion, createWorldTerrain, Cartesian3, Cartesian2, Color} from "cesium";
+import { Cartesian3 } from "cesium";
 import useGeoLocation from "./useGeoLocation";
 
 
 
-const Globe = ({center, latitude, longitude, altitude, latlngs }) => {
+const Globe = ({ center, latitude, longitude, latlngs }) => {
   
-  const location = useGeoLocation();
-  const operatorLat = location.loaded? location.coordinates.lat.toFixed(1) : null;
-  const operatorLong = location.loaded? location.coordinates.lng.toFixed(1) : null;
+  const [ipInfo, setIpInfo] = useState(null);
+  const [operatorCoord, setOperatorCoord] = useState(null);
 
+
+  useEffect(()=> {
+    fetch('https://ipinfo.io/json?token=8dd3e07d895ea7')
+    .then(response => response.json())
+    .then(data => {
+      setIpInfo(data)
+      const [lat, lon] = data.loc.split(',');
+      setOperatorCoord({ latitude: parseFloat(lat), longitude: parseFloat(lon) });
+    })
+    .catch(error => console.error(error));
+  }, []);
+  
+  console.log('operator', operatorCoord)
+  const location = useGeoLocation();
   
  
   const [viewerRef, setViewerRef] = useState(null);
 
- 
   const [issLat, setIssLat] = useState(null);
   const [issLong, setIssLong] = useState(null);
-  const [id, setId] = useState(null);
+  
   
   
   const issTooltip = document.createElement('DIV');
@@ -47,7 +58,7 @@ const Globe = ({center, latitude, longitude, altitude, latlngs }) => {
   
   
   operatorTooltip.style.display = 'none';
-  operatorTooltip.innerHTML = `You are here. Latitude: ${operatorLat}, Longitude: ${operatorLong}`;
+  operatorTooltip.innerHTML = `You are here in ${ipInfo?.city}. Latitude: ${operatorCoord?.latitude.toFixed(2)}, Longitude: ${operatorCoord?.longitude.toFixed(2)}`;
   viewerRef?.container.appendChild(operatorTooltip);
 
 
@@ -109,8 +120,6 @@ viewerRef?.clock.onTick.addEventListener(function(clock) {
     } 
    
 });
-
- console.log('id', id)
  
 
   useEffect(() => {
@@ -153,20 +162,6 @@ viewerRef?.clock.onTick.addEventListener(function(clock) {
         }
       }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
   
-  function fullScreenHandler () {
-    const canvas = viewerRef?.scene.canvas;
-    if ('webkitRequestFullscreen' in canvas) {
-              canvas['webkitRequestFullscreen'](canvas) // Safari
-          } else {
-              Cesium.Fullscreen.requestFullscreen(canvas);
-          }
-      }
-      viewerRef?.fullscreenButton.viewModel.command.beforeExecute.addEventListener(fullScreenHandler)
-      viewerRef?.fullscreenButton.viewModel.command.afterExecute.addEventListener(fullScreenHandler)
- 
-  
-   
-  
  
   useEffect(() => {
     setIssLat(latitude);
@@ -177,11 +172,11 @@ viewerRef?.clock.onTick.addEventListener(function(clock) {
  
  
   return (
-    <> 
+    <div id="iss_global_view"> 
     
     {(issLat && issLong) && <Viewer 
       full
-       
+      fullscreenElement='iss_global_view'
         style={{ height: "100%", width: "100%", position: "absolute" }}
        
         ref={(e) => {
@@ -229,11 +224,11 @@ viewerRef?.clock.onTick.addEventListener(function(clock) {
 
            
         </Resium.Entity>
-          {location.loaded && <Resium.Entity 
+          {ipInfo && <Resium.Entity 
            id= "2"
            name="Operator Position"
            description="You are here."
-           position={Cartesian3.fromDegrees(Number(operatorLat), Number(operatorLong), 100)}
+           position={Cartesian3.fromDegrees(parseFloat(operatorCoord.latitude), parseFloat(operatorCoord.longitude), 100)}
            width={10}
            point= {{ pixelSize: 8, color: Cesium.Color.YELLOW }}
           >
@@ -242,7 +237,7 @@ viewerRef?.clock.onTick.addEventListener(function(clock) {
         
       </Viewer>}
       
-    </>
+    </div>
   );
 };
 
