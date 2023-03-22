@@ -5,17 +5,30 @@ import { MapContainer, Polyline, Popup, TileLayer, Tooltip, useMap } from 'react
 import { FullscreenControl } from "react-leaflet-fullscreen";
 import Satellite from '../../assets/images/satellite.png';
 import FullScreenDropdown from '../../Components/Common/FullScreenDropdown';
-import useGeoLocation from './useGeoLocation';
+
 
 
 const WorldMap = ({center, coords, latitude, longitude }) => {
   const [map, setMap] = useState(null);
-  const location = useGeoLocation();
   const coord = [Number(latitude), Number(longitude)];
-  const operatorLat = location.loaded? location.coordinates.lat : null;
-  const operatorLong = location.loaded? location.coordinates.lng : null;
-  const operatorPosition = [operatorLat, operatorLong];
+
+  // const operatorPosition = [operatorLat, operatorLong];
   const zoom = 3
+
+  const [ipInfo, setIpInfo] = useState(null);
+  const [operatorCoord, setOperatorCoord] = useState(null);
+
+
+  useEffect(()=> {
+    fetch('https://ipinfo.io/json?token=8dd3e07d895ea7')
+    .then(response => response.json())
+    .then(data => {
+      setIpInfo(data)
+      const [lat, lon] = data.loc.split(',');
+      setOperatorCoord({ latitude: parseFloat(lat), longitude: parseFloat(lon) });
+    })
+    .catch(error => console.error(error));
+  }, []);
  
   useEffect(() => {
     if (center) {
@@ -23,8 +36,11 @@ const WorldMap = ({center, coords, latitude, longitude }) => {
     }
   },[coord])
   
-  
-  console.log('map', map)
+  let operatorPosition;
+
+  if ( operatorCoord !== null ) {
+    operatorPosition = [operatorCoord.latitude, operatorCoord.longitude]
+  }
 
 
   return (
@@ -52,12 +68,12 @@ const WorldMap = ({center, coords, latitude, longitude }) => {
             </Tooltip>
             <Popup>INTERNATIONAL SPACE STATION LIVE COORDINATES</Popup>
           </Marker>
-          {location.loaded && <Marker
+          {operatorCoord && <Marker
            position = {operatorPosition}
           
            >
           <Tooltip direction="bottom" offset={[20, 20]} opacity={1} permanent>
-            You are here <br/> Latitude: {operatorLat?.toFixed(1)} ° <br/> Longitude: {operatorLong?.toFixed(1)} °
+            You are here <br/> Latitude: {operatorCoord?.latitude.toFixed(1)} ° <br/> Longitude: {operatorCoord?.longitude.toFixed(1)} °
             </Tooltip>
           </Marker>}
          <Polyline positions={coords} color="red" />

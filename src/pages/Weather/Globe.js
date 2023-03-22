@@ -5,7 +5,6 @@ import * as Resium from "resium";
 import * as Cesium from "cesium";
 import image from '../../assets/images/iss.png'
 import { Cartesian3 } from "cesium";
-import useGeoLocation from "./useGeoLocation";
 
 
 
@@ -25,9 +24,7 @@ const Globe = ({ center, latitude, longitude, latlngs }) => {
     })
     .catch(error => console.error(error));
   }, []);
-  
-  console.log('operator', operatorCoord)
-  const location = useGeoLocation();
+
   
  
   const [viewerRef, setViewerRef] = useState(null);
