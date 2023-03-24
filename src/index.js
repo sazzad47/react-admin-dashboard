@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import { configureStore } from "./store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-// Gleap.initialize("Fw5BCaYOhaCEBwzpFeRJvRKlqsVZ3u1l");
+Gleap.initialize("Fw5BCaYOhaCEBwzpFeRJvRKlqsVZ3u1l");
 root.render(
     <Provider store={configureStore({})}>
       <React.Fragment>
