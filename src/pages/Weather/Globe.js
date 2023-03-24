@@ -148,7 +148,21 @@ const Globe = ({ center, latitude, longitude, latlngs }) => {
       }
     }
   }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
-
+  
+  useEffect(() => {
+    if (center) {
+      viewerRef?.camera.setView({
+        destination: Cesium.Cartesian3.fromDegrees(
+          latitude,
+          longitude,
+          Cesium.Ellipsoid.WGS84.cartesianToCartographic(
+            viewerRef?.camera.position
+          ).height
+        ),
+      });
+    }
+  });
+  
   useEffect(() => {
     setIssLat(latitude);
     setIssLong(longitude);
