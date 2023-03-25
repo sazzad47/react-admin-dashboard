@@ -13,13 +13,11 @@ const CesiumComponent = ({
 
   Ion.defaultAccessToken =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyMDc1ZDFhNS04MTI2LTRhNGMtOGE5NS1kMzc5NTQyZTNhM2QiLCJpZCI6MTA0NDY2LCJpYXQiOjE2NjAyMjI1ODF9.q5-l9OGgiW1Z0G3E0UK1SQkuqemxawu8Rl7-lvC6gpI";
-  const worldTerrain = createWorldTerrain();
 
   return ( 
     <Container style={{width:'100%', height:'100%', position:'relative'}}>
       <Viewer
         ref={viewerRef}
-        terrainProvider={worldTerrain}
         fullscreenElement='globalAssetView_wrapper'
         onClick={viewerClicked}
         full
