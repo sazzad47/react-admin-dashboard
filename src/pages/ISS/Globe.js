@@ -150,8 +150,8 @@ const Globe = ({ center, latitude, longitude, latlngs }) => {
     if (center) {
       viewerRef?.camera.setView({
         destination: Cesium.Cartesian3.fromDegrees(
-          latitude,
           longitude,
+          latitude,
           Cesium.Ellipsoid.WGS84.cartesianToCartographic(
             viewerRef?.camera.position
           ).height
@@ -159,6 +159,22 @@ const Globe = ({ center, latitude, longitude, latlngs }) => {
       });
     }
   });
+
+  useEffect(() => {
+    if (!viewerRef) {
+      return;
+    }
+    const clock = viewerRef.clock;
+    clock.shouldAnimate = true;
+    const now = Cesium.JulianDate.now();
+    const newEndDate = Cesium.JulianDate.addSeconds(
+      now,
+      60,
+      new Cesium.JulianDate()
+    );
+    viewerRef.timeline.zoomTo(clock.startTime, newEndDate);
+  
+  }, [viewerRef]);
 
   useEffect(() => {
     setIssLat(latitude);

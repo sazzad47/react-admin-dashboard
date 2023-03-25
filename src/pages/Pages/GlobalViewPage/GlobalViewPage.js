@@ -34,14 +34,14 @@ const GlobalViewPage = () => {
   const { startBookMark, bookmarked } = useContext(StateContext);
   const dispatch = useContext(DispatchContext);
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
-  const viewerRef = useRef(null);
+  const [viewerRef, setViewerRef] = useState(null);
   var isBookmarking = useRef(false); // ref is used here because, without it, "viewerClicked" function will be accessing the stale value of "startBookMark"
   isBookmarking.current = startBookMark;
   const terrainProvider = createWorldTerrain();
 
   // calculates the mouse's position
   function calcMousePos(evt) {
-    const scene = viewerRef.current?.cesiumElement?.scene;
+    const scene = viewerRef?.scene;
     if (!scene) return;
     const ellipsoid = scene.globe.ellipsoid;
     const cartesian = scene.camera.pickEllipsoid(evt?.endPosition, ellipsoid);
@@ -56,7 +56,7 @@ const GlobalViewPage = () => {
 
   // calculates the coordinates of the clicked location/position
   const getPosition = (object) => {
-    const scene = viewerRef.current?.cesiumElement?.scene;
+    const scene = viewerRef?.scene;
     if (!scene) return;
     const ellipsoid = scene?.globe?.ellipsoid;
     const { x, y } = object.position;
@@ -127,8 +127,8 @@ const GlobalViewPage = () => {
     if (!longitude || !latitude) return;
     const height = await getTerrainHeight(longitude, latitude);
 
-    const viewer = viewerRef?.current?.cesiumElement;
-    viewer?.camera?.flyTo({
+    
+    viewerRef?.camera?.flyTo({
       destination: Cartesian3.fromDegrees(longitude, latitude, height + 500.0),
     });
   };
@@ -143,7 +143,7 @@ const GlobalViewPage = () => {
   tooltip.style.display = "none";
 
   //show coordinates on hover
-  const coordinates = viewerRef?.current?.cesiumElement?.entities?.add({
+  const coordinates = viewerRef?.entities?.add({
     label: {
       show: false,
       showBackground: true,
@@ -156,7 +156,7 @@ const GlobalViewPage = () => {
 
   const scratch3dPosition = new Cesium.Cartesian3();
   const scratch2dPosition = new Cesium.Cartesian2();
-  viewerRef?.current?.cesiumElement?.clock.onTick.addEventListener(function (
+  viewerRef?.clock.onTick.addEventListener(function (
     clock
   ) {
     let position3d;
@@ -173,7 +173,7 @@ const GlobalViewPage = () => {
     // Moving entities don't have a position for every possible time, need to check.
     if (position3d) {
       position2d = Cesium.SceneTransforms.wgs84ToWindowCoordinates(
-        viewerRef?.current?.cesiumElement?.scene,
+        viewerRef?.scene,
         position3d,
         scratch2dPosition
       );
@@ -199,7 +199,7 @@ const GlobalViewPage = () => {
       coordinates.position = cartesian;
       tooltip.style.display = "block";
       tooltip.innerHTML = `Latitude: ${latitudeString}, Longitude: ${longitudeString}`;
-      viewerRef?.current?.cesiumElement?.container?.appendChild(tooltip);
+      viewerRef?.container?.appendChild(tooltip);
     } else {
       tooltip.style.display = "none";
     }
@@ -208,13 +208,29 @@ const GlobalViewPage = () => {
     forceUpdate();
   }, []);
 
+  useEffect(() => {
+    if (!viewerRef) {
+      return;
+    }
+    const clock = viewerRef?.clock;
+    clock.shouldAnimate = true;
+    const now = Cesium.JulianDate.now();
+    const newEndDate = Cesium.JulianDate.addSeconds(
+      now,
+      60,
+      new Cesium.JulianDate()
+    );
+    viewerRef?.timeline.zoomTo(clock.startTime, newEndDate);
+  
+  }, [viewerRef]);
+
   // prevent the cesium viewer from rerendering
   const cesiumComponent = useMemo(
     () => (
       <>
         <CesiumComponent
           updateHoverCoord={updateHoverCoord}
-          viewerRef={viewerRef}
+          setViewerRef={setViewerRef}
           viewerClicked={viewerClicked}
         />
       </>

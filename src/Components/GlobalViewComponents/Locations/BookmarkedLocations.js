@@ -32,10 +32,6 @@ const BookmarkedLocations = () => {
               scale={0.08}
               image={icons[0]}
               heightReference={Cesium.HeightReference.CLAMP_TO_GROUND}
-              // eyeOffset={new Cesium.Cartesian3(0.0, 0.0, -10.0)}
-              // verticalOrigin={Cesium.VerticalOrigin.CENTER}
-              // horizontalOrigin={Cesium.HorizontalOrigin.CENTER}
-              // disableDepthTestDistance={1.2742018 * 10 ** 7}
             />
           )}
           {item?.icon === "Red" && (
@@ -43,10 +39,6 @@ const BookmarkedLocations = () => {
               scale={0.05}
               image={icons[1]}
               heightReference={Cesium.HeightReference.CLAMP_TO_GROUND}
-              // eyeOffset={new Cesium.Cartesian3(0.0, 0.0, -10.0)}
-              // verticalOrigin={Cesium.VerticalOrigin.CENTER}
-              // horizontalOrigin={Cesium.HorizontalOrigin.CENTER}
-              // disableDepthTestDistance={1.2742018 * 10 ** 7}
             />
           )}
           {item?.icon === "Green" && (
@@ -54,10 +46,6 @@ const BookmarkedLocations = () => {
               scale={0.05}
               image={icons[2]}
               heightReference={Cesium.HeightReference.CLAMP_TO_GROUND}
-              // eyeOffset={new Cesium.Cartesian3(0.0, 0.0, -10.0)}
-              // verticalOrigin={Cesium.VerticalOrigin.CENTER}
-              // horizontalOrigin={Cesium.HorizontalOrigin.CENTER}
-              // disableDepthTestDistance={1.2742018 * 10 ** 7}
             />
           )}
         </Entity>
