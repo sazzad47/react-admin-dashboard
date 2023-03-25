@@ -1,25 +1,20 @@
 import React from "react";
 import moment from "moment-timezone";
 
-
 export default function WeeklyWeather({ weeklyWeather, timezone }) {
   return (
     <div className="weekly">
       <h3 className="weekly__title">
         Weekly <span>Weather</span>
       </h3>
-    
-     {weeklyWeather.length > 0 && 
-     weeklyWeather.map((weather, index) => {
-        if (index === 0) {
+      {weeklyWeather.length > 0 &&
+        weeklyWeather.map((weather, index) => {
+          if (index === 0) {
             return;
-        }
-        return (
-              <div key={weather.dt}></div>
-        )
-     })}
-      
-      
+          }
+          return <div key={weather.dt}></div>;
+        })}
+
       {weeklyWeather.length > 0 &&
         weeklyWeather.map((weather, index) => {
           if (index === 0) {
@@ -40,7 +35,6 @@ export default function WeeklyWeather({ weeklyWeather, timezone }) {
                       <span>{weather.temp.min.toFixed(0)}&deg;C</span>
                     </h4>
                   </div>
-
                   <div className="weekly__sun-times">
                     <div>
                       <span>Sunrise</span>
@@ -48,7 +42,6 @@ export default function WeeklyWeather({ weeklyWeather, timezone }) {
                         {moment.unix(weather.sunrise).tz(timezone).format("LT")}
                       </span>
                     </div>
-
                     <div>
                       <span>Sunset</span>
                       <span>
@@ -57,7 +50,6 @@ export default function WeeklyWeather({ weeklyWeather, timezone }) {
                     </div>
                   </div>
                 </div>
-
                 <div className="weekly__right-content">
                   <div className="weekly__icon-wrapper">
                     <div>
@@ -67,7 +59,6 @@ export default function WeeklyWeather({ weeklyWeather, timezone }) {
                       />
                     </div>
                   </div>
-
                   <h5>{weather.weather[0].description}</h5>
                 </div>
               </div>

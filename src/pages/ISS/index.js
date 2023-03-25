@@ -21,9 +21,6 @@ const Weather = () => {
   const [pause, setPause] = useState(false);
   const [center, setCenter] = useState(false);
 
-  const handlePause = () => setPause(!pause);
-  console.log("pause", pause);
-
   return (
     <>
       <div className="page-content mx-3">

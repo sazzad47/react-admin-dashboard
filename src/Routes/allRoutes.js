@@ -70,7 +70,7 @@ import EcommerceSellerDetail from "../pages/Ecommerce/EcommerceSellers/Ecommerce
 //MarketplaceSoon 
 import MarketplaceSoon from "../pages/NFTMarketplace/Market";
 //Weather 
-import Weather from "../pages/Weather/index";
+import Weather from "../pages/ISS/index";
 //Global View Page
 import GlobalViewPage from '../pages/Pages/GlobalViewPage/GlobalViewPage';
 // NFT Marketplace Pages

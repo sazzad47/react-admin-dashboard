@@ -136,19 +136,16 @@ const Globe = ({ center, latitude, longitude, latlngs }) => {
       var pickedObject = scene?.pick(movement.endPosition);
 
       if (Cesium.defined(pickedObject) && pickedObject.id._id === "1") {
-        // isEntityVisible = false;
-        console.log("pickedObject", pickedObject);
         issTooltip.style.display = "block";
       } else if (Cesium.defined(pickedObject) && pickedObject.id._id === "2") {
         operatorTooltip.style.display = "block";
       } else {
-        // isEntityVisible = true;
         issTooltip.style.display = "none";
         operatorTooltip.style.display = "none";
       }
     }
   }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
-  
+
   useEffect(() => {
     if (center) {
       viewerRef?.camera.setView({
@@ -162,7 +159,7 @@ const Globe = ({ center, latitude, longitude, latlngs }) => {
       });
     }
   });
-  
+
   useEffect(() => {
     setIssLat(latitude);
     setIssLong(longitude);
@@ -208,7 +205,7 @@ const Globe = ({ center, latitude, longitude, latlngs }) => {
             id="1"
             name="ISS"
             description="Here is ISS"
-            position={Cartesian3.fromDegrees(issLat, issLong, 100)}
+            position={Cartesian3.fromDegrees(issLong, issLat, 100)}
           >
             <Resium.BillboardGraphics
               image={image}
@@ -226,8 +223,8 @@ const Globe = ({ center, latitude, longitude, latlngs }) => {
               name="Operator Position"
               description="You are here."
               position={Cartesian3.fromDegrees(
-                parseFloat(operatorCoord.latitude),
                 parseFloat(operatorCoord.longitude),
+                parseFloat(operatorCoord.latitude),
                 100
               )}
               width={10}
