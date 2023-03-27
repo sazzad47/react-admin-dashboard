@@ -127,7 +127,6 @@ const GlobalViewPage = () => {
     if (!longitude || !latitude) return;
     const height = await getTerrainHeight(longitude, latitude);
 
-    
     viewerRef?.camera?.flyTo({
       destination: Cartesian3.fromDegrees(longitude, latitude, height + 500.0),
     });

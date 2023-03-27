@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card, CardBody, CardHeader, Col, Form, Label, Row } from "reactstrap";
-import { issParameters } from "./Quantities";
+import { issParameters } from "./Units";
 const TempConverter = ({ setRadiusUnit, setAltitudeUnit, setVelocityUnit }) => {
   const [parameter, setParameter] = useState();
 

@@ -1,26 +1,63 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MapTabContainer from "./mapTabContainer";
-import WorldMap from "./WorldMap";
-import Globe from "./Globe";
+import Map from "./2DMap";
+import CesiumComponent from "./CesiumComponent";
 import ISSStream from "./ISSStream";
 import { Card, Col, Input, Label, Row } from "reactstrap";
-import RightSideISSData from "./RightSideISSData";
+import MiniTable from "./MiniTable";
 import "./style.css";
+import { fetchISSData, fetchOperatorData } from "./FetchData";
 
-const Weather = () => {
-  const [latitude, setLatitude] = React.useState();
+const index = () => {
+  const [ipInfo, setIpInfo] = useState(null);
+  const [operatorCoord, setOperatorCoord] = useState(null);
+  const [issData, setIssData] = useState({});
   const [latlngs, setLatlngs] = useState([]);
   const [coords, setCoords] = useState([]);
-  const [longitude, setLongitude] = React.useState();
-  const [altitude, setAltitude] = React.useState();
-
-  const [operatorLat, setOperatorLat] = useState(null);
-  const [operatorLong, setOperatorLong] = useState(null);
-  const [operatorCity, setOperatorCity] = useState(null);
 
   const [pause, setPause] = useState(false);
   const [center, setCenter] = useState(false);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchOperatorData();
+      setIpInfo(data.ipInfo);
+      setOperatorCoord(data.operatorCoord);
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (pause) return;
+    const MAX_POINTS = 30;
+    const fetchData = async () => {
+      const response = await fetchISSData();
+      setIssData(response);
+      let trajectory = [];
+      trajectory.push(response.latitude, response.longitude);
+      let latlngs = trajectory.map((elem) => parseFloat(elem));
+
+      if (latlngs.length === MAX_POINTS) {
+        latlngs.shift();
+        latlngs.shift();
+      }
+      setLatlngs((oldArr) => [
+        ...oldArr,
+        parseFloat(response.longitude),
+        parseFloat(response.latitude),
+      ]);
+      setCoords((oldArr) => [...oldArr, latlngs]);
+    };
+
+    fetchData();
+
+    const intervalId = setInterval(fetchData, 10000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [pause]);
+console.log('latns', latlngs.length)
   return (
     <>
       <div className="page-content mx-3">
@@ -68,14 +105,12 @@ const Weather = () => {
                 position: "relative",
               }}
             >
-              <Globe
-                operatorLat={operatorLat}
-                operatorLong={operatorLong}
+              <CesiumComponent
                 center={center}
                 latlngs={latlngs}
-                latitude={latitude}
-                longitude={longitude}
-                altitude={altitude}
+                ipInfo={ipInfo}
+                operatorCoord={operatorCoord}
+                issData={issData}
               />
             </div>
           </Col>
@@ -87,14 +122,12 @@ const Weather = () => {
                   className="block-container"
                   style={{ position: "relative" }}
                 >
-                  <WorldMap
+                  <Map
                     center={center}
-                    operatorLat={operatorLat}
-                    operatorLong={operatorLong}
-                    operatorCity={operatorCity}
                     coords={coords}
-                    latitude={latitude}
-                    longitude={longitude}
+                    issData={issData}
+                    ipInfo={ipInfo}
+                    operatorCoord={operatorCoord}
                   />
                 </div>
               </Card>
@@ -113,11 +146,8 @@ const Weather = () => {
                   className="wmap"
                   style={{ position: "relative" }}
                 >
-                  <RightSideISSData
-                    pause={pause}
-                    setLatitude={setLatitude}
-                    setLongitude={setLongitude}
-                    setAltitude={setAltitude}
+                  <MiniTable
+                    issData={issData}
                     dataColors='["--vz-primary", "--vz-success"]'
                   />
                 </div>
@@ -128,19 +158,11 @@ const Weather = () => {
         <Row>
           <Col className="tab-container mt-5">
             <MapTabContainer
-              setOperatorLat={setOperatorLat}
-              setOperatorLong={setOperatorLong}
-              setOperatorCity={setOperatorCity}
               setCoords={setCoords}
               latlngs={latlngs}
               setLatlngs={setLatlngs}
-              pause={pause}
-              setLatitude={setLatitude}
-              setLongitude={setLongitude}
-              altitude={altitude}
-              latitude={latitude}
               dataColors='["--vz-primary", "--vz-success"]'
-              longitude={longitude}
+              issData={issData}
             />
           </Col>
         </Row>
@@ -149,4 +171,4 @@ const Weather = () => {
   );
 };
 
-export default Weather;
+export default index;

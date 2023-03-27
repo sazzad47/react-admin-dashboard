@@ -27,7 +27,7 @@
   padding: 3px 8px;
 }
 /*To the left*/
-.toolTip-left {
+.iss_toolTip {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,12 +36,11 @@
   max-height: 50px;
   position: absolute;
   width: 230px;
-  
   border: 2px solid rgba(19, 159, 255, 1);
   border-radius: 10px;
   background-color: rgba(30, 49, 74, 0.6);
 }
-.toolTip-left:before {
+.iss_toolTip:before {
   content: "";
   display: block;
   position: absolute;
@@ -64,8 +63,4 @@
 .cesium-widget-credits{
   display:none !important;
 }
-
-
-
-
 

@@ -7,6 +7,7 @@ const breakPoints = [
   { width: 768, itemsToShow: 2 },
   { width: 1200, itemsToShow: 3 },
 ];
+
 const Cameras = () => {
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
@@ -15,27 +16,11 @@ const Cameras = () => {
           style={{ minHeight: "15rem", position: "relative" }}
           breakPoints={breakPoints}
         >
-          <div style={{ minHeight: "16rem" }}>
-            <ISSStream width="100%" height="100%" />
-          </div>
-          <div style={{ minHeight: "16rem" }}>
-            <ISSStream width="100%" height="100%" />
-          </div>
-          <div style={{ minHeight: "16rem" }}>
-            <ISSStream width="100%" height="100%" />
-          </div>
-          <div style={{ minHeight: "16rem" }}>
-            <ISSStream width="100%" height="100%" />
-          </div>
-          <div style={{ minHeight: "16rem" }}>
-            <ISSStream width="100%" height="100%" />
-          </div>
-          <div style={{ minHeight: "16rem" }}>
-            <ISSStream width="100%" height="100%" />
-          </div>
-          <div style={{ minHeight: "16rem" }}>
-            <ISSStream width="100%" height="100%" />
-          </div>
+          {Array.from({ length: 7 }, (_, i) => (
+            <div key={i} style={{ minHeight: "16rem" }}>
+              <ISSStream width="100%" height="100%" />
+            </div>
+          ))}
         </Carousel>
       </div>
       <div>
@@ -47,27 +32,11 @@ const Cameras = () => {
           }}
           breakPoints={breakPoints}
         >
-          <div style={{ minHeight: "16rem" }}>
-            <ISSStream width="100%" height="100%" />
-          </div>
-          <div style={{ minHeight: "16rem" }}>
-            <ISSStream width="100%" height="100%" />
-          </div>
-          <div style={{ minHeight: "16rem" }}>
-            <ISSStream width="100%" height="100%" />
-          </div>
-          <div style={{ minHeight: "16rem" }}>
-            <ISSStream width="100%" height="100%" />
-          </div>
-          <div style={{ minHeight: "16rem" }}>
-            <ISSStream width="100%" height="100%" />
-          </div>
-          <div style={{ minHeight: "16rem" }}>
-            <ISSStream width="100%" height="100%" />
-          </div>
-          <div style={{ minHeight: "16rem" }}>
-            <ISSStream width="100%" height="100%" />
-          </div>
+          {Array.from({ length: 7 }, (_, i) => (
+            <div key={i} style={{ minHeight: "16rem" }}>
+              <ISSStream width="100%" height="100%" />
+            </div>
+          ))}
         </Carousel>
       </div>
     </div>

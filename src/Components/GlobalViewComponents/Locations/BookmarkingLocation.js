@@ -15,12 +15,12 @@ const BookmarkingLocation = () => {
 
     return (
         <Entity
-            position={Cartesian3.fromDegrees(bookmarking?.long, bookmarking?.lat, bookmarking?.alt)}
+            position={Cartesian3.fromDegrees(parseFloat(bookmarking?.long), parseFloat(bookmarking?.lat), parseFloat(bookmarking?.alt))}
             name={bookmarking?.name}
-            show={bookmarking?.long}
+            
         >
             <EntityDescription>
-                <DescriptionTable longitude={bookmarking?.longitude} latitude={bookmarking?.latitude} date={bookmarking?.date} desc={bookmarking?.desc} />
+                <DescriptionTable longitude={parseFloat(bookmarking?.long)} latitude={parseFloat(bookmarking?.lat)} date={bookmarking?.date} desc={bookmarking?.desc} />
             </EntityDescription>
             {bookmarking?.icon === "Yellow" && (
                 <BillboardGraphics heightReference={HeightReference.CLAMP_TO_GROUND} image={icons[0]} scale={0.08}  />

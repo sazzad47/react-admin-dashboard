@@ -1,5 +1,5 @@
 import { Cartesian3 } from "cesium";
-import { createContext, useReducer } from "react";
+import { createContext } from "react";
 
 const now = new Date();
 
@@ -156,7 +156,7 @@ export const reducer = (state, action) => {
                     {
                         name: payload?.name,
                         desc: payload?.desc ? payload?.desc : "",
-                        pos: Cartesian3.fromDegrees( payload?.long, payload?.lat, 10000.0),
+                        pos: Cartesian3.fromDegrees( parseFloat(payload?.long), parseFloat(payload?.lat), 10000.0),
                         date: `${now.getDate()}-${now.getMonth()}-${now.getFullYear()} ${now.getHours()
                         }:${now.getMinutes()}`,
                         longitude: payload?.long, 

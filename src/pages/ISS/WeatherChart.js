@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
-import moment from "moment-timezone";
-import TempConverter from "./TempConverter";
+import TempConverter from "./converters/TempConverter";
+import { fetchWeatherData } from "./FetchData";
 
-const WeatherChart = () => {
-  const [timezone, setTimezone] = useState();
+const WeatherChart = ({ issData }) => {
   const [days, setDays] = useState([]);
   const [maxTemps, setMaxTemps] = useState([]);
   const [minTemps, setMinTemps] = useState([]);
@@ -13,63 +12,27 @@ const WeatherChart = () => {
   const [humidity, setHumidity] = useState([]);
   const [pressure, setPressure] = useState([]);
 
-  const [loading, setLoading] = useState(true);
-
-  const fetchData = () => {
-    fetch("https://api.wheretheiss.at/v1/satellites/25544")
-      .then((response) => response.json())
-      .then((data) => {
-        let coordinates = [data.latitude, data.longitude];
-        fetchWeather(coordinates);
-      })
-      .catch(console.error);
-  };
-
-  const fetchWeather = (coordinates) => {
-    setLoading(true);
-    fetch(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates[0]}&lon=${coordinates[1]}&appid=783846624ca63c9a9fcdd9321a7c9318&exclude=minutely&units=metric`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        let timezone = data.timezone;
-        let days = data.daily.map((day) => {
-          return moment.unix(day.dt).tz(timezone).format("MMM Do YY");
-        });
-        let maxTemps = data.daily.map((data) => {
-          return data.temp.max;
-        });
-        let minTemps = data.daily.map((data) => {
-          return data.temp.min;
-        });
-        let windSpeeds = data.daily.map((data) => {
-          return data.wind_speed;
-        });
-        let cloudCoverage = data.daily.map((data) => {
-          return data.clouds;
-        });
-        let humidity = data.daily.map((data) => {
-          return data.humidity;
-        });
-        let pressure = data.daily.map((data) => {
-          return data.pressure;
-        });
-
-        setTimezone(timezone);
-        setDays(days);
-        setMaxTemps(maxTemps);
-        setMinTemps(minTemps);
-        setWindSpeeds(windSpeeds);
-        setCloudCoverage(cloudCoverage);
-        setHumidity(humidity);
-        setPressure(pressure);
-        setLoading(false);
-      });
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const coordinates = [issData.latitude, issData.longitude];
+        const response = await fetchWeatherData(coordinates);
+        setDays(response.days);
+        setMaxTemps(response.maxTemps);
+        setMinTemps(response.minTemps);
+        setWindSpeeds(response.windSpeeds);
+        setCloudCoverage(response.cloudCoverage);
+        setHumidity(response.humidity);
+        setPressure(response.pressure);
+      } catch (error) {
+        console.error(error);
+        // handle error
+      }
+    };
+
     fetchData();
-  }, []);
+    
+  }, [issData]);
 
   const [tempUnit, setTempUnit] = useState();
   const [speedUnit, setSpeedUnit] = useState();
@@ -164,7 +127,6 @@ const WeatherChart = () => {
     minTempConverter(tempUnit);
     speedConverter(speedUnit);
   }, [tempUnit, speedUnit]);
-
 
   var series = [
     {
@@ -417,7 +379,7 @@ const WeatherChart = () => {
       offsetX: 40,
     },
   };
-
+  if (!issData) return (<h2>Loading...</h2>)
   return (
     <React.Fragment>
       <ReactApexChart

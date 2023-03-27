@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Card, CardBody, CardHeader, Col, Table } from "reactstrap";
 
 const ISSTable = ({ velocityUnit, altitudeUnit, data }) => {
-  const time = data[1];
-  const date = data[0];
-  const lat = data[3];
-  const long = data[4];
-  const velocity = data[5];
-  const altitude = data[6];
+  const {
+    humanDateFormat,
+    unixTimestamp,
+    latitude,
+    longitude,
+    speed,
+    altitude,
+  } = data;
 
   const [timeArr, setTimeArr] = useState([]);
   const [dateArr, setDateArr] = useState([]);
@@ -18,19 +20,19 @@ const ISSTable = ({ velocityUnit, altitudeUnit, data }) => {
 
   useEffect(() => {
     const prepareArr = () => {
-      const valid = !isNaN(lat || long || velocity || altitude);
+      const valid = !isNaN(latitude || longitude || speed || altitude);
       if (!valid) {
         return;
       }
-      setTimeArr((prevArr) => [...prevArr, time]);
+      setTimeArr((prevArr) => [...prevArr, unixTimestamp]);
       if (timeArr.length > 4) timeArr.shift();
-      setDateArr((prevArr) => [...prevArr, date]);
+      setDateArr((prevArr) => [...prevArr, humanDateFormat]);
       if (dateArr.length > 4) dateArr.shift();
-      setLatArr((prevArr) => [...prevArr, parseFloat(lat)]);
+      setLatArr((prevArr) => [...prevArr, parseFloat(latitude)]);
       if (latArr.length > 4) latArr.shift();
-      setLongArr((prevArr) => [...prevArr, parseFloat(long)]);
+      setLongArr((prevArr) => [...prevArr, parseFloat(longitude)]);
       if (longArr.length > 4) longArr.shift();
-      setVelocityArr((prevArr) => [...prevArr, parseFloat(velocity)]);
+      setVelocityArr((prevArr) => [...prevArr, parseFloat(speed)]);
       if (velocityArr.length > 4) velocityArr.shift();
       setAltitudeArr((prevArr) => [...prevArr, parseFloat(altitude)]);
       if (altitudeArr.length > 4) altitudeArr.shift();

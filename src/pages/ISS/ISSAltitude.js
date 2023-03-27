@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
-import AltitudeConverter from "./AltitudeConverter";
+import AltitudeConverter from "./converters/AltitudeConverter";
 
 function getChartColorsArray(colors) {
   colors = JSON.parse(colors);
@@ -31,7 +31,7 @@ const ISSAltitude = ({ dataColors, altitude }) => {
   const [xAxis, setXAxis] = useState([]);
   const [arrayAlt, setArrayAlt] = useState([]);
   const [xValues, setXValues] = useState([]);
-
+  console.log('altitude', altitude)
   useEffect(() => {
     const prepareArray = () => {
       const valid = !isNaN(altitude);

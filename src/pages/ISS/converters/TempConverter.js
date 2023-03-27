@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Card, CardBody, CardHeader, Col, Form, Label, Row } from "reactstrap";
-import Quantities from "./Quantities";
+import Units from "./Units";
 const TempConverter = ({ setTempUnit, setSpeedUnit, setPressureUnit }) => {
   const [parameter, setParameter] = useState();
 
-  const quantities = Quantities.map((quantity, index) => (
+  const quantities = Units.map((quantity, index) => (
     <option key={index} defaultValue={quantity.quantity}>
       {quantity.quantity}
     </option>
   ));
-  const units = Quantities.find(
+  const units = Units.find(
     (quantity) => quantity.quantity === parameter
   )?.units.map((unit, index) => (
     <option key={index} defaultValue={unit}>
