@@ -14,7 +14,7 @@ import {
   Nav,
   CardFooter,
 } from "reactstrap";
-import './style.css'
+import "./style.css";
 import classnames from "classnames";
 import BreadCrumb from "../../../Components/Common/BreadCrumb";
 import orbitalsm from "../../../assets/images/marketplaceSoon/orbital.png";
@@ -109,56 +109,61 @@ const Marketplace = () => {
                   <TabPane tabId="1" id="home1">
                     <Row>
                       {cardData.map((item, index) => (
-                        <Col xl={4} lg={4} md={6} sm={6} xs ={12} key={index}>
+                        <Col xl={4} lg={4} md={6} sm={6} xs={12} key={index}>
                           <div className="mb-4 mb-md-4 mb-lg-5">
-                          <Card style={{minHeight:'28rem'}}>
-                            <div
-                              
-                            >
-                              <img
-                               
-                                className="img-fluid h-100 w-100 object-cover"
-                                src={item.image}
-                                alt="..."
-                              />
-                            </div>
-
-                            <CardBody style={{minHeight:'40%'}}>
-                              <h5 style={{height:'3rem'}} className="card-title">{item.heading}</h5>
-                              <p className="text-muted">{item.subHeading}</p>
-                              <div className="d-flex align-items-end justify-content-between">
-                                <p
-                                  className="text-muted 
-                                                justify-content-center flex align-items-center "
-                                >
-                                  <i className="bx bx-coin-stack"></i>
-                                  {item.speed}
-                                </p>
-                                <p
-                                  className="text-muted 
-                                                justify-content-center flex align-items-center "
-                                >
-                                  <i className="bx bx-bookmarks"></i>
-                                  {item.public}
-                                </p>
+                            <Card style={{ height: "27rem" }}>
+                              <div>
+                                <img
+                                  className="img-fluid h-100 w-100 object-cover"
+                                  src={item.image}
+                                  alt="..."
+                                />
                               </div>
-                            </CardBody>
-                            <CardFooter style={{minHeight:'10%'}} className="d-flex align-items-center justify-content-between">
-                              {item.restricted ? (
-                                <RestrictedModal />
-                              ) : (
-                                <DetailsModal item={item} />
-                              )}
-                              {item.restricted ? (
-                                <p
-                                  style={{ color: "red" }}
-                                  className="card-text text-bg-danger"
+
+                              <CardBody>
+                                <h5
+                                  style={{ height: "2rem" }}
+                                  className="card-title"
                                 >
-                                  <i className="bx bx-lock-alt"></i>Restricted
-                                </p>
-                              ) : null}
-                            </CardFooter>
-                          </Card>
+                                  {item.heading}
+                                </h5>
+                                <p className="text-muted">{item.subHeading}</p>
+                                <div className="d-flex align-items-end justify-content-between">
+                                  <p
+                                    className="text-muted 
+                                                justify-content-center flex align-items-center "
+                                  >
+                                    <i className="bx bx-coin-stack"></i>
+                                    {item.speed}
+                                  </p>
+                                  <p
+                                    className="text-muted 
+                                                justify-content-center flex align-items-center "
+                                  >
+                                    <i className="bx bx-bookmarks"></i>
+                                    {item.public}
+                                  </p>
+                                </div>
+                              </CardBody>
+                              <CardFooter
+                                style={{ minHeight: "10%" }}
+                                className="d-flex align-items-center justify-content-between"
+                              >
+                                {item.restricted ? (
+                                  <RestrictedModal />
+                                ) : (
+                                  <DetailsModal item={item} />
+                                )}
+                                {item.restricted ? (
+                                  <p
+                                    style={{ color: "red" }}
+                                    className="card-text text-bg-danger"
+                                  >
+                                    <i className="bx bx-lock-alt"></i>Restricted
+                                  </p>
+                                ) : null}
+                              </CardFooter>
+                            </Card>
                           </div>
                         </Col>
                       ))}
@@ -171,33 +176,29 @@ const Marketplace = () => {
                       <p>Manage your custom building blocks to the platform</p>
                     </div>
                     <Row fluid>
-                      <Col xl={4} lg={4} md={6} sm={6} xs ={12} >
-                        <div className="mb-4 mb-md-4 mb-lg-5"> 
-                        <Card
-                          className="file-drop"
-                          style={{
-                            border: "2px dashed #32383e",
-                            borderRadius: "6px",
-                           
-                            minHeight:'28rem',
-                            height:'28rem',
-                            display: "flex",
-                            justifyContent: "center",
-                          }}
-                        >
-                          <FilePond
-                            files={files}
-                            onupdatefiles={setFiles}
-                            allowMultiple={true}
-                            maxFiles={10}
-                            name="files"
-                            className="filepond filepond-input-multiple"
-                            
-                            allowImagePreview={false}
-                            onaddfile={() =>
-                              toast.success("Successfully uploaded")
-                            }
-                            labelIdle={`<div style="min-height:100%">
+                      <Col xl={4} lg={4} md={6} sm={6} xs={12}>
+                        <div className="mb-4 mb-md-4 mb-lg-5">
+                          <Card
+                            className="ml-block flex-grow-1"
+                            style={{
+                              height: "27rem",
+                              width: "100%",
+                              display: "flex",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <FilePond
+                              files={files}
+                              onupdatefiles={setFiles}
+                              allowMultiple={true}
+                              maxFiles={10}
+                              name="files"
+                              className="filepond filepond-input-multiple"
+                              allowImagePreview={false}
+                              onaddfile={() =>
+                                toast.success("Successfully uploaded")
+                              }
+                              labelIdle={`<div style="min-height:100%">
                                 <div                                                
                                 >
                                 <div>
@@ -207,60 +208,65 @@ const Marketplace = () => {
                                 </div>
                             </div>
                             `}
-                            labelButtonProcessItem="upload"
-                          />
-                        </Card>
+                              labelButtonProcessItem="upload"
+                            />
+                          </Card>
                         </div>
                       </Col>
+
                       {files.map((item, index) => (
-                        <Col xl={4} lg={4} md={6} sm={6} xs ={12} key={index}>
-                          <div className="mb-4 mb-md-4 mb-lg-5" >
-
-                         
-                          <Card className="ml-block" style={{minHeight:'28rem'}}>
-                            <div
-                             
+                        <Col xl={4} lg={4} md={6} sm={6} xs={12} key={index}>
+                          <div className="mb-4 mb-md-4 mb-lg-5">
+                            <Card
+                              className="ml-block"
+                              style={{ height: "27rem" }}
                             >
-                              <img
-                               
-                                className="img-fluid h-100 w-100 object-cover"
-                                src={orbitalsm}
-                                alt="..."
-                              />
-                            </div>
-
-                            <CardBody>
-                              <h5 style={{height:'3rem'}} className="card-title">Building Detection</h5>
-                              <p className="text-muted">
-                                This block provides a water-related geohazards
-                                prediction processing workflow with Sentinel-2
-                                Geotiff format scenes.
-                              </p>
-                              <div className="d-flex align-items-end justify-content-between">
-                                <p
-                                  className="text-muted 
-                                                justify-content-center flex align-items-center "
-                                >
-                                  <i className="bx bx-coin-stack"></i>100 per km
-                                </p>
-                                <p
-                                  className="text-muted 
-                                                justify-content-center flex align-items-center "
-                                >
-                                  <i className="bx bx-bookmarks"></i>1.0 public
-                                </p>
+                              <div>
+                                <img
+                                  className="img-fluid h-100 w-100 object-cover"
+                                  src={orbitalsm}
+                                  alt="..."
+                                />
                               </div>
-                            </CardBody>
-                            <CardFooter className="d-flex align-items-center justify-content-between">
-                              <UnverifiedModal />
-                              <p
-                                style={{ color: "red" }}
-                                className="card-text text-bg-danger"
-                              >
-                                <i className="bx bx-lock-alt"></i>Unverified
-                              </p>
-                            </CardFooter>
-                          </Card>
+                              <CardBody>
+                                <h5
+                                  style={{ height: "2rem" }}
+                                  className="card-title"
+                                >
+                                  Building Detection
+                                </h5>
+                                <p className="text-muted">
+                                  This block provides a water-related geohazards
+                                  prediction processing workflow with Sentinel-2
+                                  Geotiff format scenes.
+                                </p>
+                                <div className="d-flex align-items-end justify-content-between">
+                                  <p
+                                    className="text-muted 
+                                                justify-content-center flex align-items-center "
+                                  >
+                                    <i className="bx bx-coin-stack"></i>100 per
+                                    km
+                                  </p>
+                                  <p
+                                    className="text-muted 
+                                                justify-content-center flex align-items-center "
+                                  >
+                                    <i className="bx bx-bookmarks"></i>1.0
+                                    public
+                                  </p>
+                                </div>
+                              </CardBody>
+                              <CardFooter className="d-flex align-items-center justify-content-between">
+                                <UnverifiedModal />
+                                <p
+                                  style={{ color: "red" }}
+                                  className="card-text text-bg-danger"
+                                >
+                                  <i className="bx bx-lock-alt"></i>Unverified
+                                </p>
+                              </CardFooter>
+                            </Card>
                           </div>
                         </Col>
                       ))}
