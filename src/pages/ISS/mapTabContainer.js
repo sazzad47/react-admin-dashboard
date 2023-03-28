@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Nav, NavItem, NavLink, TabContent, TabPane } from "reactstrap";
 import classnames from "classnames";
-import ISSData from "./ISSData";
+import ISSData from "./issData";
 import Cameras from "./Cameras";
 import { WeatherChart } from "./WeatherChart";
 import ISSAltitude from "./ISSAltitude";
