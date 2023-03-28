@@ -8,7 +8,7 @@ import MiniTable from "./MiniTable";
 import "./style.css";
 import { fetchISSData, fetchOperatorData } from "./FetchData";
 
-const index = () => {
+const Index = () => {
   const [ipInfo, setIpInfo] = useState(null);
   const [operatorCoord, setOperatorCoord] = useState(null);
   const [issData, setIssData] = useState({});
@@ -158,10 +158,6 @@ console.log('latns', latlngs.length)
         <Row>
           <Col className="tab-container mt-5">
             <MapTabContainer
-              setCoords={setCoords}
-              latlngs={latlngs}
-              setLatlngs={setLatlngs}
-              dataColors='["--vz-primary", "--vz-success"]'
               issData={issData}
             />
           </Col>
@@ -171,4 +167,4 @@ console.log('latns', latlngs.length)
   );
 };
 
-export default index;
+export default Index;

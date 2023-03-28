@@ -7,15 +7,6 @@ import { WeatherChart } from "./WeatherChart";
 import ISSAltitude from "./ISSAltitude";
 
 const MapTabContainer = ({
-  setCoords,
-  latlngs,
-  setLatlngs,
-  pause,
-  setLatitude,
-  setLongitude,
-  latitude,
-  longitude,
-  altitude,
   issData
 }) => {
   const [customActiveTab, setcustomActiveTab] = useState("weather");
