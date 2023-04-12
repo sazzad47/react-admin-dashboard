@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
     Row,
     Col,
@@ -10,12 +10,7 @@ import {
     Label,
     Form,
     FormFeedback,
-    Modal,
-    ModalHeader,
-    ModalBody,
 } from 'reactstrap';
-
-import downloadIcon from '../../assets/images/svg/download-svgrepo-com.svg';
 
 // Formik Validation
 import * as Yup from 'yup';
@@ -37,7 +32,6 @@ import logoLight from '../../assets/images/logo-light.png';
 import ParticlesAuth from '../AuthenticationInner/ParticlesAuth';
 
 const Register = () => {
-    const [showTerms, setShowTerms] = useState(false);
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -89,7 +83,7 @@ const Register = () => {
         }, 3000);
     }, [dispatch, success, error, history]);
 
-    document.title = 'Sign Up | UD Platform';
+    document.title = 'Basic SignUp | Velzon - React Admin & Dashboard Template';
 
     return (
         <React.Fragment>
@@ -98,17 +92,21 @@ const Register = () => {
                     <Container>
                         <Row>
                             <Col lg={12}>
-                                <div className='mt-2 mt-sm-5 d-flex flex-column justify-content-center align-items-center'>
-                                    {/* <div className='register-logo-circle'> */}
-                                    <h5 className='text-primary fw-bold fs-3 text-white'>
-                                        UD PLATFORM
-                                    </h5>
-                                    {/* </div> */}
-                                    {/* <h5 className='text-center fw-bold fs-3 mt-4'>
-                                    Sign Up
-                                </h5> */}
+                                <div className='text-center mt-sm-5 mb-4 text-white-50'>
+                                    <div>
+                                        <Link
+                                            to='/'
+                                            className='d-inline-block auth-logo'
+                                        >
+                                            <img
+                                                src={logoLight}
+                                                alt=''
+                                                height='20'
+                                            />
+                                        </Link>
+                                    </div>
                                     <p className='mt-3 fs-15 fw-medium'>
-                                        Platform for Data in Motion
+                                        Premium Admin & Dashboard Template
                                     </p>
                                 </div>
                             </Col>
@@ -123,8 +121,7 @@ const Register = () => {
                                                 Create New Account
                                             </h5>
                                             <p className='text-muted'>
-                                                Get your free UD Platform
-                                                account now
+                                                Get your free velzon account now
                                             </p>
                                         </div>
                                         <div className='p-2 mt-4'>
@@ -377,18 +374,13 @@ const Register = () => {
                                                 <div className='mb-4'>
                                                     <p className='mb-0 fs-12 text-muted fst-italic'>
                                                         By registering you agree
-                                                        to our {'\u00a0'}
-                                                        <span
-                                                            role='button'
-                                                            onClick={() => {
-                                                                setShowTerms(
-                                                                    true
-                                                                );
-                                                            }}
+                                                        to the Velzon
+                                                        <Link
+                                                            to='#'
                                                             className='text-primary text-decoration-underline fst-normal fw-medium'
                                                         >
                                                             Terms of Use
-                                                        </span>
+                                                        </Link>
                                                     </p>
                                                 </div>
 
@@ -401,40 +393,40 @@ const Register = () => {
                                                     </button>
                                                 </div>
 
-                                                {/* <div className='mt-4 text-center'>
-                                                <div className='signin-other-title'>
-                                                    <h5 className='fs-13 mb-4 title text-muted'>
-                                                        Create account with
-                                                    </h5>
-                                                </div>
+                                                <div className='mt-4 text-center'>
+                                                    <div className='signin-other-title'>
+                                                        <h5 className='fs-13 mb-4 title text-muted'>
+                                                            Create account with
+                                                        </h5>
+                                                    </div>
 
-                                                <div>
-                                                    <button
-                                                        type='button'
-                                                        className='btn btn-primary btn-icon waves-effect waves-light'
-                                                    >
-                                                        <i className='ri-facebook-fill fs-16'></i>
-                                                    </button>{' '}
-                                                    <button
-                                                        type='button'
-                                                        className='btn btn-danger btn-icon waves-effect waves-light'
-                                                    >
-                                                        <i className='ri-google-fill fs-16'></i>
-                                                    </button>{' '}
-                                                    <button
-                                                        type='button'
-                                                        className='btn btn-dark btn-icon waves-effect waves-light'
-                                                    >
-                                                        <i className='ri-github-fill fs-16'></i>
-                                                    </button>{' '}
-                                                    <button
-                                                        type='button'
-                                                        className='btn btn-info btn-icon waves-effect waves-light'
-                                                    >
-                                                        <i className='ri-twitter-fill fs-16'></i>
-                                                    </button>
+                                                    <div>
+                                                        <button
+                                                            type='button'
+                                                            className='btn btn-primary btn-icon waves-effect waves-light'
+                                                        >
+                                                            <i className='ri-facebook-fill fs-16'></i>
+                                                        </button>{' '}
+                                                        <button
+                                                            type='button'
+                                                            className='btn btn-danger btn-icon waves-effect waves-light'
+                                                        >
+                                                            <i className='ri-google-fill fs-16'></i>
+                                                        </button>{' '}
+                                                        <button
+                                                            type='button'
+                                                            className='btn btn-dark btn-icon waves-effect waves-light'
+                                                        >
+                                                            <i className='ri-github-fill fs-16'></i>
+                                                        </button>{' '}
+                                                        <button
+                                                            type='button'
+                                                            className='btn btn-info btn-icon waves-effect waves-light'
+                                                        >
+                                                            <i className='ri-twitter-fill fs-16'></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            </div> */}
                                             </Form>
                                         </div>
                                     </CardBody>
@@ -448,7 +440,7 @@ const Register = () => {
                                             className='fw-semibold text-primary text-decoration-underline'
                                         >
                                             {' '}
-                                            Sign in{' '}
+                                            Signin{' '}
                                         </Link>{' '}
                                     </p>
                                 </div>
@@ -457,88 +449,6 @@ const Register = () => {
                     </Container>
                 </div>
             </ParticlesAuth>
-            <Modal
-                isOpen={showTerms}
-                size='lg'
-                toggle={() => {
-                    setShowTerms(false);
-                }}
-                centered={true}
-            >
-                <ModalHeader
-                    className='p-3 bg-soft-info modal-title'
-                    toggle={() => {
-                        setShowTerms(false);
-                    }}
-                >
-                    UD Platform
-                </ModalHeader>
-                <ModalBody className='py-3 px-5'>
-                    <div className='mt-2'>
-                        {/* <img
-                            src={downloadIcon}
-                            className='img-fluid download-modal-icon'
-                            alt='user-pic'
-                        /> */}
-                        <div className='mt-2 pt-2 fs-15 mx-4 mx-sm-5'>
-                            <h4 className='text-center mb-3'>Terms of Use</h4>
-                            <div className='text-left mb-2'>
-                                <p className='text-muted mx-4 mb-0'>
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit. Aenean placerat nisi id est
-                                    placerat, sed finibus arcu sodales. Praesent
-                                    at nunc facilisis, luctus leo eget,
-                                    hendrerit velit. Integer fermentum ligula
-                                    sit amet risus eleifend volutpat. Vestibulum
-                                    mi sem, blandit nec velit eu, dignissim
-                                    viverra sem.
-                                </p>
-                                <br />
-
-                                <p className='text-muted mx-4 mb-0'>
-                                    Quisque laoreet dolor sed accumsan euismod.
-                                    Nulla suscipit consectetur dui a volutpat.
-                                    Nam risus risus, euismod eu tincidunt non,
-                                    vehicula sit amet leo. Pellentesque varius
-                                    blandit leo, vitae malesuada sapien
-                                    imperdiet sit amet. Nam sit amet rhoncus ex.{' '}
-                                </p>
-                                <br />
-                                <p className='text-muted mx-4 mb-0'>
-                                    Sed fermentum pellentesque felis, quis
-                                    malesuada urna pulvinar id. Vivamus eget
-                                    orci est. Mauris eu tincidunt dui. Vivamus
-                                    faucibus vehicula elit ac accumsan. Maecenas
-                                    sagittis bibendum magna non facilisis. Morbi
-                                    convallis sit amet turpis nec viverra. Donec
-                                    nec dictum neque.{' '}
-                                </p>
-                                <br />
-                                <p className='text-muted mx-4 mb-0'>
-                                    Integer varius, nibh et elementum tempor,
-                                    dui purus consequat metus, et tempus nisi
-                                    nibh ut velit. Fusce in velit facilisis,
-                                    eleifend lorem lacinia, laoreet lorem. Donec
-                                    pretium eget arcu vel malesuada. Donec in
-                                    sagittis turpis.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='d-flex gap-2 justify-content-center mt-4 mb-2'>
-                        <button
-                            type='button'
-                            className='btn w-sm btn-primary '
-                            id='delete-record'
-                            onClick={() => {
-                                setShowTerms(false);
-                            }}
-                        >
-                            Accept
-                        </button>
-                    </div>
-                </ModalBody>
-            </Modal>
         </React.Fragment>
     );
 };

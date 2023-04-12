@@ -1,3 +1,4 @@
+// Import necessary libraries
 import { Viewer, Entity } from "resium";
 import { useEffect, useState } from "react";
 import { ScreenSpaceEventHandler, ScreenSpaceEvent } from "resium";
@@ -14,9 +15,12 @@ import {
   Ellipsoid,
   JulianDate,
 } from "cesium";
+
+// Import images
 import iss from "../../assets/images/iss.png";
 import operator from "../../assets/images/operator.png";
 
+// A component for displaying tooltip on hover
 const Tooltip = ({ description, position }) => {
   return (
     <div
@@ -41,6 +45,7 @@ const Tooltip = ({ description, position }) => {
   );
 };
 
+// A component for displaying the entities on the map
 const Entities = ({ entities }) => {
   return (
     <>
@@ -50,12 +55,14 @@ const Entities = ({ entities }) => {
   );
 };
 
+// A component to display the map with mouse hover effect
 const ViewerWithMouseMove = ({ children, center, issData }) => {
   const [viewerRef, setViewerRef] = useState(null);
   const [showTooltip, setShowTooltip] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
   const [tooltipDescription, setTooltipDescription] = useState("");
 
+  // handle mouse hover event
   const handleMouseMove = (e) => {
     if (viewerRef.scene?.mode !== SceneMode.MORPHING) {
       const pickedObject = viewerRef.scene.pick(e.endPosition);
@@ -89,6 +96,7 @@ const ViewerWithMouseMove = ({ children, center, issData }) => {
     }
   };
 
+  // Set the view of the camera
   useEffect(() => {
     if (center) {
       viewerRef?.camera.setView({
@@ -102,6 +110,7 @@ const ViewerWithMouseMove = ({ children, center, issData }) => {
     }
   });
 
+  // Make the timeline of the widget functional
   useEffect(() => {
     if (!viewerRef) {
       return;
@@ -109,13 +118,8 @@ const ViewerWithMouseMove = ({ children, center, issData }) => {
     const clock = viewerRef.clock;
     clock.shouldAnimate = true;
     const now = JulianDate.now();
-    const newEndDate = JulianDate.addSeconds(
-      now,
-      60,
-      new JulianDate()
-    );
+    const newEndDate = JulianDate.addSeconds(now, 60, new JulianDate());
     viewerRef.timeline.zoomTo(clock.startTime, newEndDate);
-  
   }, [viewerRef]);
 
   return (
@@ -141,6 +145,7 @@ const ViewerWithMouseMove = ({ children, center, issData }) => {
   );
 };
 
+// Generate entities to be displayed on the map
 const GenerateEntity = ({ operatorCoord, ipInfo, issData, latlngs }) => {
   let entities = [];
 
@@ -209,6 +214,7 @@ const GenerateEntity = ({ operatorCoord, ipInfo, issData, latlngs }) => {
   return entities;
 };
 
+// Set the view of the camera
 const ResiumViewer = ({ operatorCoord, ipInfo, issData, center, latlngs }) => {
   const entities = GenerateEntity({
     operatorCoord,
@@ -227,3 +233,5 @@ const ResiumViewer = ({ operatorCoord, ipInfo, issData, center, latlngs }) => {
 };
 
 export default ResiumViewer;
+
+// This code defines a map component that displays the location of the International Space Station (ISS) and a ground station operator icon. The component also draws a line connecting the ISS and the ground station. The user can hover over any point on the map to see a tooltip with information about the location. The map uses the Cesium library and React. The component imports necessary libraries, images, and subcomponents. The Tooltip component displays the tooltip, the Entities component displays the entities on the map, and the ResiumViewer component displays the map with a mouse hover effect. The ISSMap component is the main component that uses the other components to create the map.
