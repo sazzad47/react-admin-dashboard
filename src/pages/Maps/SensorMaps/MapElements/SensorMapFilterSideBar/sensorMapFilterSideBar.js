@@ -110,14 +110,6 @@ const SensorMapFilterSideBar = ({ sensorList, mapRef, mapLayers }) => {
     <Card>
       
         <div className="d-flex mb-3">
-          <div className="flex-grow-1">
-            {/* <h5 className="fs-16">Filters</h5> */}
-            <button type="button" className="btn btn-primary">
-                      {" "}
-                      <i className="ri-equalizer-fill me-1 align-bottom"></i>
-                      Filters
-            </button>
-          </div>
           <div className="flex-shrink-0">
             <div
               style={{ cursor: "pointer" }}

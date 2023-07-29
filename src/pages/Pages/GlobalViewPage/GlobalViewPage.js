@@ -37,7 +37,7 @@ const GlobalViewPage = () => {
   const [viewerRef, setViewerRef] = useState(null);
   var isBookmarking = useRef(false); // ref is used here because, without it, "viewerClicked" function will be accessing the stale value of "startBookMark"
   isBookmarking.current = startBookMark;
-  const terrainProvider = createWorldTerrain();
+  const terrainProvider = Cesium?.createWorldTerrain();
 
   // calculates the mouse's position
   function calcMousePos(evt) {

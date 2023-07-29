@@ -37,7 +37,7 @@ const Sidebar = ({ layoutType }) => {
     <React.Fragment>
       <div className="app-menu navbar-menu">
         <div className="navbar-brand-box">
-          <Link to="/" className="logo logo-dark">
+          {/* <Link to="/" className="logo logo-dark">
             <span className="logo-sm">
               <img src={logoSm} alt="" height="22" />
             </span>
@@ -53,7 +53,8 @@ const Sidebar = ({ layoutType }) => {
             <span className="logo-lg">
               <img src={logoLight} alt="" height="17" />
             </span>
-          </Link>
+          </Link> */}
+          {/* <h4 style={{fontSize: "1rem", padding: "2rem", textTransform: "uppercase"}}> ISS Analytics </h4> */}
           <button
             onClick={addEventListenerOnSmHoverMenu}
             type="button"
