@@ -163,6 +163,10 @@ import SensorMaps from "../pages/Maps/SensorMaps/SensorMaps";
 // import BasicPasswReset from '../pages/AuthenticationInner/PasswordReset/BasicPasswReset';
 //Smart Node
 import Flow from "../pages/Smartnodes/Flow";
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+
 // //financeManagement
 // import FinanceManagement from "../pages/FinanceManagement";
 
