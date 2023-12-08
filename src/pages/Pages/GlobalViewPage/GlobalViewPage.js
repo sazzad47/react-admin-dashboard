@@ -15,7 +15,6 @@ import {
   Cartesian2,
   Cartesian3,
   Cartographic,
-  createWorldTerrain,
   Math,
   sampleTerrainMostDetailed,
 } from "cesium";
@@ -37,7 +36,6 @@ const GlobalViewPage = () => {
   const [viewerRef, setViewerRef] = useState(null);
   var isBookmarking = useRef(false); // ref is used here because, without it, "viewerClicked" function will be accessing the stale value of "startBookMark"
   isBookmarking.current = startBookMark;
-  const terrainProvider = createWorldTerrain();
 
   // calculates the mouse's position
   function calcMousePos(evt) {
@@ -75,6 +73,7 @@ const GlobalViewPage = () => {
   };
 
   const getTerrainHeight = async (longitude, latitude) => {
+    const terrainProvider = await Cesium.createWorldTerrainAsync();
     const positions = [Cartographic.fromDegrees(longitude, latitude)];
 
     const sample = await sampleTerrainMostDetailed(terrainProvider, positions);
